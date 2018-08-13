@@ -66,41 +66,18 @@ def process_timingdrawer_nodes(app, doctree, fromdocname):
     import pdb; pdb.set_trace()
 
     for node in doctree.traverse(TimingDrawerNode):
-
+        # Replace node with empty list unless timing drawer succeeds
         content = []
-
         # Run TimingDrawer
         ext = 'eps'
         filename = 'timingdrawer-%i.%s' % (node.attributes['ids'][0], ext)
         path = 'build/%s' % filename
-        TimingDrawer.create_timing(node.rawsource, ext, path)
-
-        # Create a figure node
-        content.append(create_figure(node, filename))
-
-        # for todo_info in env.todo_all_todos:
-        #     para = nodes.paragraph()
-        #     filename = env.doc2path(todo_info['docname'], base=None)
-        #     description = (
-        #         _('(The original entry is located in %s, line %d and can be found ') %
-        #         (filename, todo_info['lineno']))
-        #     para += nodes.Text(description, description)
-
-        #     # Create a reference
-        #     newnode = nodes.reference('', '')
-        #     innernode = nodes.emphasis(_('here'), _('here'))
-        #     newnode['refdocname'] = todo_info['docname']
-        #     newnode['refuri'] = app.builder.get_relative_uri(
-        #         fromdocname, todo_info['docname'])
-        #     newnode['refuri'] += '#' + todo_info['target']['refid']
-        #     newnode.append(innernode)
-        #     para += newnode
-        #     para += nodes.Text('.)', '.)')
-
-        #     # Insert into the todolist
-        #     content.append(todo_info['todo'])
-        #     content.append(para)
-
+        try:
+            TimingDrawer.create_timing_diagram(node.rawsource, ext, path)
+            content.append(create_figure(node, filename))
+        except TimingDrawer.ParseError as e:
+            # TODO add cerror message to log
+            pass
         node.replace_self(content)
 
 ################################################################################
