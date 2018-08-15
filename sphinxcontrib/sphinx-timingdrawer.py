@@ -148,15 +148,6 @@ def on_build_finished(app, exc):
 ################################################################################
 
 def render_timingdrawer_latex(self, node, code):
-    # type: (nodes.NodeVisitor, graphviz, unicode, Dict, unicode) -> None
-    # try:
-    #     fname, outfn = render_dot(self, code, options, 'pdf', prefix)
-
-    # except GraphvizError as exc:
-    #     logger.warning(__('dot code %r: %s'), code, text_type(exc))
-    #     raise nodes.SkipNode
-    import pdb; pdb.set_trace()
-
     try:
         ext = 'eps'
         rand = randint(0,2**16)
@@ -190,24 +181,3 @@ def render_timingdrawer_latex(self, node, code):
         self.body.append('%s\n' % post)
 
     raise nodes.SkipNode
-
-# def process_timingdrawer_nodes(app, doctree, fromdocname):
-#     env = app.builder.env
-#     lol = 1
-#     import pdb; pdb.set_trace()
-
-#     for node in doctree.traverse(TimingDrawerNode):
-#         # Replace node with empty list unless timing drawer succeeds
-#         content = []
-#         # Run TimingDrawer
-#         ext = 'eps'
-#         filename = 'timingdrawer-%i.%s' % (node.attributes['ids'][0], ext)
-#         path = 'build/%s' % filename
-#         try:
-#             TimingDrawer.create_timing_diagram(node.rawsource, ext, path)
-#             content.append(create_figure(node, filename))
-#         except TimingDrawer.ParseError as e:
-#             # TODO add cerror message to log
-#             pass
-#         node.replace_self(content)
-
