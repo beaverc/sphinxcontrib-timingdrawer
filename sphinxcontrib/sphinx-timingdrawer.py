@@ -1,6 +1,21 @@
+# -*- coding: utf-8 -*-
+"""
+    spinxcontib-timingdrawer
+    ~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Allow timingdrawer timing diagrams to be included in Sphinx-generated
+    documents. This plugin is heavily based on sphinx.ext.graphviz by the Sphinx
+    team.
+
+    :copyright: Copyright 2018 by Christopher Beaver (beavercpb@gmail.com).
+    :license: BSD, see LICENSE for details.
+"""
+
+import codecs
 from docutils import nodes
 from docutils.parsers.rst import Directive, directives
 from docutils.statemachine import ViewList
+from sphinx.locale import _, __
 from sphinx.util import logging
 from sphinx.util.i18n import search_image_for_language
 import subprocess
@@ -95,9 +110,10 @@ class TimingDrawerDirective(Directive):
                 return [document.reporter.warning(
                     __('timingdrawer directive cannot have both content and '
                        'a filename argument'), line=self.lineno)]
-            argument = search_image_for_language(self.arguments[0], self.env)
-            rel_filename, filename = self.env.relfn2path(argument)
-            self.env.note_dependency(rel_filename)
+            env = self.state.document.settings.env
+            argument = search_image_for_language(self.arguments[0], env)
+            rel_filename, filename = env.relfn2path(argument)
+            env.note_dependency(rel_filename)
             try:
                 with codecs.open(filename, 'r', 'utf-8') as fp:  # type: ignore
                     timingcode = fp.read()
