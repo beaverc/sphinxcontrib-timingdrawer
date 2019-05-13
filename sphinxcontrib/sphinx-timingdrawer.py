@@ -23,7 +23,6 @@ import sys
 from os import path
 from random import randint
 
-sys.path.append('/cad/projects/ReUseDB/work/chrbe/timingdrawer/timingdrawer-code-r54-trunk')
 import TimingDrawer
 
 logger = logging.getLogger(__name__)
