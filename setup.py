@@ -9,13 +9,13 @@ except ImportError:
 here = os.path.dirname(os.path.abspath(__file__))
 
 requires = [
-    'Sphinx>=0.6',
+    'Sphinx>=2.0',
     # TODO add timingdrawer here
 ]
 
 setup(
     name='sphinxcontrib-timingdrawer',
-    version='0.3.3',
+    version='0.2.0',
     url='https://github.com/beaverc/sphinxcontrib-timingdrawer',
     download_url='',
     license='BSD',

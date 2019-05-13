@@ -40,7 +40,7 @@ def setup(app):
     app.add_directive('timingdrawer', TimingDrawerDirective)
     app.connect('build-finished', on_build_finished)
 
-    return {'version': '0.1'}   # identifies the version of our extension
+    return {'version': '0.2'}
 
 ################################################################################
 # TimingDrawerNode
